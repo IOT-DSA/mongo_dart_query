@@ -3,6 +3,7 @@ part of mongo_dart_query;
 SelectorBuilder get where => new SelectorBuilder();
 
 class SelectorBuilder {
+  static const int defaultBatchSize = 20;
   static final RegExp objectIdRegexp =
       new RegExp(".ObjectId...([0-9a-f]{24})....");
   Map map = {};
@@ -17,6 +18,7 @@ class SelectorBuilder {
 
   int paramSkip = 0;
   int paramLimit = 0;
+  int paramBatchSize = defaultBatchSize;
   Map paramFields;
 
   String toString() => "SelectorBuilder($map)";
@@ -246,6 +248,11 @@ class SelectorBuilder {
 
   SelectorBuilder limit(int limit) {
     paramLimit = limit;
+    return this;
+  }
+
+  SelectorBuilder batchSize(int batchSize) {
+    paramBatchSize = batchSize;
     return this;
   }
 
